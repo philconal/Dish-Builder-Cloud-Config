@@ -1,0 +1,39 @@
+
+spring:
+  application:
+    name: cloud-config
+  profiles:
+    include: native,jdbc
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database: postgresql
+    show-sql: true
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    schemas: dishbuilder
+    locations: classpath:db/migration
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/shared
+          order: 1
+        jdbc:
+          sql:
+            SELECT key, value FROM dishbuilder.ws_properties prop WHERE (application=? OR application='all-services')  AND profile=? AND label=?
+          order: 2
+        default-profile: jdbc
+      retry:
+        max-attempts: 20
+server:
+  port: 8888
+
+logging:
+  level:
+    org.springframework.cloud.config.server: DEBUG
+    org.springframework.jdbc.core: DEBUG   # if using JDBC backend
