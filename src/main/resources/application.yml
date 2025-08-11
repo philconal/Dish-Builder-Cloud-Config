@@ -12,10 +12,12 @@ spring:
   jpa:
     database: postgresql
     show-sql: true
+    hibernate:
+      ddl-auto: validate
   flyway:
     enabled: true
     baseline-on-migrate: true
-    schemas: dishbuilder
+    schemas: config_schema
     locations: classpath:db/migration
   cloud:
     config:
@@ -25,7 +27,7 @@ spring:
           order: 1
         jdbc:
           sql:
-            SELECT key, value FROM dishbuilder.ws_properties prop WHERE (application=? OR application='all-services')  AND profile=? AND label=?
+            SELECT key, value FROM config_schema.ws_properties prop WHERE (application=? OR application='all-services')  AND profile=? AND label=?
           order: 2
         default-profile: jdbc
       retry:

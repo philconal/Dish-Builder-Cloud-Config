@@ -151,7 +151,23 @@
                     </excludes>
                 </configuration>
             </plugin>
-
+            <!-- Flyway Maven Plugin -->
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>11.7.2</version>
+                <configuration>
+                    <url>jdbc:postgresql://localhost:5432/dish-builder-db</url>
+                    <user>dishbuilder</user>
+                    <password>Conal2411@C</password>
+                    <schemas>
+                        <schema>config_schema</schema>
+                    </schemas>
+                    <locations>
+                        <location>filesystem:src/main/resources/db/migration</location>
+                    </locations>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
