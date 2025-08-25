@@ -1,16 +1,16 @@
 version: "3.8"
 
 services:
-  dish-builer-db:
-    image: postgres:14.18
-    container_name: dish-builder-db
+  dish-builder-db:
+    image: postgres:latest
+    container_name: postgres_db
     environment:
-      POSTGRES_USER: dishbuiler
+      POSTGRES_USER: dish-builder
       POSTGRES_PASSWORD: Conal2411@C
-      POSTGRES_DB: dish-builder-db
+      POSTGRES_DB: dish_builder_db
     ports:
       - "5432:5432"
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - dbd_data:/var/lib/postgresql/data
 volumes:
-  db_data:
+  dbd_data:

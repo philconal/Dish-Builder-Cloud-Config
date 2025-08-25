@@ -5,7 +5,7 @@ spring:
   profiles:
     include: native,jdbc
   datasource:
-    url: ${DB_URL}
+    url: jdbc:postgresql://localhost:5432/dish_builder_db?options=-c%20TimeZone=Asia/Ho_Chi_Minh
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
@@ -19,6 +19,9 @@ spring:
     baseline-on-migrate: true
     schemas: config_schema
     locations: classpath:db/migration
+    user: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    url: ${DB_URL}
   cloud:
     config:
       server:
@@ -32,6 +35,8 @@ spring:
         default-profile: jdbc
       retry:
         max-attempts: 20
+  jackson:
+    time-zone: Asia/Ho_Chi_Minh
 server:
   port: 8888
 
