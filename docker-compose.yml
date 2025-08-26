@@ -11,6 +11,18 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - dbd_data:/var/lib/postgresql/data
+      - db_data:/var/lib/postgresql/data
+
+  mail-hog:
+    image: mailhog/mailhog
+    container_name: dish_builder_mail
+    ports:
+      - "1025:1025" # SMTP port for applications to send mail to
+      - "8025:8025" # MailHog web UI port to view intercepted emails
+  redis:
+    image: redis
+    container_name: dish_builder_redis
+    ports:
+      - "6379:6379"
 volumes:
-  dbd_data:
+  db_data:

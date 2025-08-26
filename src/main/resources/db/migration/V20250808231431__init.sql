@@ -20,7 +20,7 @@ create table if not exists ws_properties
 -- Insert dữ liệu
 INSERT INTO ws_properties(application, label, profile, key, value, created_at)
 VALUES
-    ('dish-builder-app', 'master', 'local', 'spring.datasource.url', 'jdbc:postgresql://localhost:5432/dish-builder', now()),
+    ('dish-builder-app', 'master', 'local', 'spring.datasource.url', 'jdbc:postgresql://localhost:5432/dish_builder_db', now()),
     ('dish-builder-app', 'master', 'local', 'spring.datasource.username', 'dish-builder', now()),
     ('dish-builder-app', 'master', 'local', 'spring.datasource.password', 'Conal2411@C', now()),
     ('dish-builder-app', 'master', 'local', 'spring.jpa.hibernate.ddl-auto', 'validate', now()),
