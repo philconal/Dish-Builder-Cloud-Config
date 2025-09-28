@@ -2,21 +2,26 @@
 FROM maven:3.9.4-eclipse-temurin-21 AS builder
 WORKDIR /app
 
+# Copy pom.xml and download dependencies (cache layer)
 COPY pom.xml .
 RUN mvn dependency:go-offline -B
 
+# Copy source code and build
 COPY src ./src
-RUN mvn clean package -DskipTests -DfinalName=app
+RUN mvn clean package -DskipTests
 
 # Stage 2: Production image
 FROM openjdk:21-jdk-slim AS prod
 WORKDIR /app
 
-COPY --from=builder /app/target/app.jar app.jar
+# Copy the built jar (any name) and rename to app.jar
+COPY --from=builder /app/target/*.jar app.jar
 
+# Expose production port
 EXPOSE 8888
 
-# set profile active
+# Set active profile
 ENV SPRING_PROFILES_ACTIVE=prod
 
+# Run the jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
